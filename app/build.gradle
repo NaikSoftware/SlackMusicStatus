@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+def Properties properties = new Properties()
+
+if (project.rootProject.file('local.properties').canRead()) {
+    properties.load(new FileInputStream(project.rootProject.file('local.properties')))
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -12,8 +18,16 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'SLACK_CLIENT_ID', '\"/api/mobile/1/\"'
+            buildConfigField 'String', 'SLACK_CLIENT_SECRET', '\"/api/mobile/1/\"'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'SLACK_CLIENT_ID', '\"' + properties.get("slack.client_id", "") + '\"'
+            buildConfigField 'String', 'SLACK_CLIENT_SECRET', '\"' + properties.get("slack.clent_secret", "") + '\"'
         }
     }
 }

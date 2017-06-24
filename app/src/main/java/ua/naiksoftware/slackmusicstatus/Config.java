@@ -9,8 +9,8 @@ public class Config {
 
     public static class Slack {
 
-        private static final String CLIENT_ID = "202979854597.202807189091";
-        private static final String CLIENT_SECRET = "cafbbe1985cac8d1342128161c63952c";
+        private static final String CLIENT_ID = BuildConfig.SLACK_CLIENT_ID;
+        private static final String CLIENT_SECRET = BuildConfig.SLACK_CLIENT_SECRET;
         private static final String API_URL = "https://slack.com/api/";
 
         public static final String AUTH_URL = "https://slack.com/oauth/authorize?" +
