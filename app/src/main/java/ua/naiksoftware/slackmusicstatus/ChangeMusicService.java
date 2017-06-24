@@ -40,7 +40,7 @@ public class ChangeMusicService extends IntentService {
         String track = intent.getStringExtra(EXTRA_TRACK);
         if (artist == null) artist = getString(R.string.unknown_artist);
         if (track == null) track = getString(R.string.unknown_track);
-        String jsonProfile = "\"{status_text\":\"" + artist + " - " + track + "\", \"status_emoji\":\"" + Config.Slack.MUSICAL_STATUS_EMOJI + "\"}";
+        String jsonProfile = "{\"status_text\":\"" + artist + " - " + track + "\", \"status_emoji\":\"" + Config.Slack.MUSICAL_STATUS_EMOJI + "\"}";
         String result = NetworkHelper.post(String.class, Config.Slack.POST_STATUS_URL, Arrays.asList(
                 new Pair<>("token", user.token),
                 new Pair<>("profile", jsonProfile)
