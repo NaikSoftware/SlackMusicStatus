@@ -27,6 +27,10 @@ public class Config {
         public static final String FETCH_TEAM_URL = API_URL + "team.info?" +
                 "token=%s";
 
+        public static final String POST_STATUS_URL = API_URL + "users.profile.set";
+
         public static final String REDIRECT_URL_HOST = "localhost";
+
+        public static final String MUSICAL_STATUS_EMOJI = ":musical_note:";
     }
 }

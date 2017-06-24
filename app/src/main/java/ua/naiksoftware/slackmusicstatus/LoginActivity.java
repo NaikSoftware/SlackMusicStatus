@@ -53,7 +53,7 @@ public class LoginActivity extends Activity {
                 Uri url = request.getUrl();
                 if (url.getHost().equals(Config.Slack.REDIRECT_URL_HOST)) {
                     String code = url.getQueryParameter("code");
-                    mLoadDataTask = NetworkHelper.get(new Callback<AuthResponse>() {
+                    mLoadDataTask = NetworkHelper.getAsync(new Callback<AuthResponse>() {
                         @Override
                         public void call(AuthResponse authResponse) {
                             if (authResponse == null) onLoginError(LoginError.AUTH);
@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
     }
 
     private void onAuthSuccess(final AuthResponse response) {
-        mLoadDataTask = NetworkHelper.get(new Callback<FetchProfileResponse>() {
+        mLoadDataTask = NetworkHelper.getAsync(new Callback<FetchProfileResponse>() {
             @Override
             public void call(FetchProfileResponse profileResponse) {
                 if (profileResponse == null) onLoginError(LoginError.FETCH_USER_INFO);
@@ -80,7 +80,7 @@ public class LoginActivity extends Activity {
     }
 
     private void onFetchProfileSuccess(final AuthResponse authResponse, final FetchProfileResponse profileResponse) {
-        mLoadDataTask = NetworkHelper.get(new Callback<FetchTeamResponse>() {
+        mLoadDataTask = NetworkHelper.getAsync(new Callback<FetchTeamResponse>() {
             @Override
             public void call(FetchTeamResponse teamResponse) {
                 if (teamResponse == null) onLoginError(LoginError.FETCH_TEAM_INFO);

@@ -3,4 +3,6 @@
     <string name="error_auth">Auth error</string>
     <string name="error_fetch_user_info">Error during fetch user profile</string>
     <string name="error_fetch_team_info">Error durin fetch team info</string>
+    <string name="unknown_artist">Unknown artist</string>
+    <string name="unknown_track">Unknown track</string>
 </resources>
