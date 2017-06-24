@@ -5,4 +5,5 @@
     <string name="error_fetch_team_info">Error durin fetch team info</string>
     <string name="unknown_artist">Unknown artist</string>
     <string name="unknown_track">Unknown track</string>
+    <string name="logout">Logout</string>
 </resources>

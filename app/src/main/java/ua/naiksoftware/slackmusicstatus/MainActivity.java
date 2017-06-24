@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,10 +40,7 @@ public class MainActivity extends Activity {
             mTeamAvatar = (ImageView) findViewById(R.id.team_avatar);
             bindInfo(user);
         } else {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            startLogin();
         }
     }
 
@@ -69,6 +66,18 @@ public class MainActivity extends Activity {
                 if (bitmaps[1] != null) mTeamAvatar.setImageBitmap(bitmaps[1]);
             }
         }.execute();
+    }
+
+    private void startLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    public void logout(View view) {
+        DataStorage.clear(this);
+        startLogin();
     }
 
     @Override
