@@ -48,14 +48,11 @@ public class LoginActivity extends Activity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(Config.Slack.AUTH_URL);
         mWebView.setWebViewClient(new WebViewClient() {
-
-            String code;
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri url = request.getUrl();
                 if (url.getHost().equals(Config.Slack.REDIRECT_URL_HOST)) {
-                    code = url.getQueryParameter("code");
+                    String code = url.getQueryParameter("code");
                     mLoadDataTask = NetworkHelper.get(new Callback<AuthResponse>() {
                         @Override
                         public void call(AuthResponse authResponse) {
