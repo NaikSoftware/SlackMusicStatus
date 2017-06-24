@@ -8,8 +8,11 @@ public class ChangeMusicReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ChangeMusicService.startHandleChange(context,
-                intent.getStringExtra("artist"),
-                intent.getStringExtra("track"));
+        String artist = intent.getStringExtra("artist");
+        String track = intent.getStringExtra("track");
+        if (artist == null) artist = context.getString(R.string.unknown_artist);
+        if (track == null) track = context.getString(R.string.unknown_track);
+
+        ChangeStatusService.startHandleChange(context, artist + " - " + track, Config.Slack.MUSICAL_STATUS_EMOJI, false);
     }
 }

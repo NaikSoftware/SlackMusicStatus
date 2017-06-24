@@ -57,7 +57,7 @@
         </receiver>
 
         <service
-            android:name=".ChangeMusicService"
+            android:name=".ChangeStatusService"
             android:exported="false">
         </service>
     </application>

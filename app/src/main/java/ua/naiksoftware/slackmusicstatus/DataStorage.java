@@ -12,6 +12,7 @@ import ua.naiksoftware.slackmusicstatus.model.User;
 public class DataStorage {
 
     private static final String KEY_USER = "KEY_USER";
+    private static final String KEY_ENABLED = "KEY_ENABLED";
 
     private static SharedPreferences sSharedPreferences;
     private static User sUser;
@@ -31,6 +32,14 @@ public class DataStorage {
         editor.putString(KEY_USER, NetworkHelper.GSON.toJson(user));
         editor.apply();
         sUser = null;
+    }
+
+    public static boolean getEnabled(Context context) {
+        return getPrefs(context).getBoolean(KEY_ENABLED, true);
+    }
+
+    public static void setEnabled(Context context, boolean enabled) {
+        getPrefs(context).edit().putBoolean(KEY_ENABLED, enabled).apply();
     }
 
     public static void clear(Context context) {

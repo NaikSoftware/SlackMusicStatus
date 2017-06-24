@@ -33,5 +33,6 @@ public class Config {
         public static final String REDIRECT_URL_HOST = "localhost";
 
         public static final String MUSICAL_STATUS_EMOJI = ":musical_note:";
+        public static final String DEFAULT_STATUS_EMOJI = ":whale:";
     }
 }

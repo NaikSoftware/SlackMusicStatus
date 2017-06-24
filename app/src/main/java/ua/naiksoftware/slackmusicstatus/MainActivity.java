@@ -6,8 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -66,6 +70,22 @@ public class MainActivity extends Activity {
                 if (bitmaps[1] != null) mTeamAvatar.setImageBitmap(bitmaps[1]);
             }
         }.execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.menu_item_enabled);
+        Switch switchEnabled = (Switch) item.getActionView();
+        switchEnabled.setChecked(DataStorage.getEnabled(this));
+        switchEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                DataStorage.setEnabled(MainActivity.this, isChecked);
+                if (!isChecked) ChangeStatusService.startHandleChange(MainActivity.this, "", Config.Slack.DEFAULT_STATUS_EMOJI, true);
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void startLogin() {
