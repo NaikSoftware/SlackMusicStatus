@@ -56,6 +56,20 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".PlaybackCompleteReceiver"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.music.playbackcomplete"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".PlayStateReceiver"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.music.playstatechanged"/>
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".ChangeStatusService"
             android:exported="false">

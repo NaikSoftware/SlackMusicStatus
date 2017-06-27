@@ -39,6 +39,12 @@ public class ChangeStatusService extends IntentService {
 
         String status = intent.getStringExtra(EXTRA_STATUS);
         String icon = intent.getStringExtra(EXTRA_STATUS_ICON);
+
+        if (status != null && status.equals(DataStorage.getLastStatus(this))) {
+            Log.d(TAG, "Ignore the same status string - " + status);
+            return;
+        }
+
         String jsonProfile = "{\"status_text\":\"" + status + "\", \"status_emoji\":\"" + icon + "\"}";
         String result = NetworkHelper.post(String.class, Config.Slack.POST_STATUS_URL, Arrays.asList(
                 new Pair<>("token", user.token),

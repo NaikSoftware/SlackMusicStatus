@@ -13,6 +13,7 @@ public class DataStorage {
 
     private static final String KEY_USER = "KEY_USER";
     private static final String KEY_ENABLED = "KEY_ENABLED";
+    private static final String KEY_LAST_STATUS = "KEY_LAST_STATUS";
 
     private static SharedPreferences sSharedPreferences;
     private static User sUser;
@@ -40,6 +41,22 @@ public class DataStorage {
 
     public static void setEnabled(Context context, boolean enabled) {
         getPrefs(context).edit().putBoolean(KEY_ENABLED, enabled).apply();
+    }
+
+    public static String getDefaultStatusString() {
+        return "";
+    }
+
+    public static String getDefaultStatusIcon() {
+        return ":whale:";
+    }
+
+    public static String getLastStatus(Context context) {
+        return getPrefs(context).getString(KEY_LAST_STATUS, null);
+    }
+
+    public static void updateStatus(Context context, String status) {
+        getPrefs(context).edit().putString(KEY_LAST_STATUS, status).apply();
     }
 
     public static void clear(Context context) {

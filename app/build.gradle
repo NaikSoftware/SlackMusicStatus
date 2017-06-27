@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-def Properties properties = new Properties()
+Properties properties = new Properties()
 
 if (project.rootProject.file('local.properties').canRead()) {
     properties.load(new FileInputStream(project.rootProject.file('local.properties')))
