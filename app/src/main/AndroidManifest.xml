@@ -55,16 +55,16 @@
                 <action android:name="com.andrew.apollo.metachanged"/>
             </intent-filter>
         </receiver>
-
-        <receiver android:name=".PlaybackCompleteReceiver"
-                  android:exported="true">
+        <receiver
+            android:name=".PlaybackCompleteReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.android.music.playbackcomplete"/>
             </intent-filter>
         </receiver>
-
-        <receiver android:name=".PlayStateReceiver"
-                  android:exported="true">
+        <receiver
+            android:name=".PlayStateReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.android.music.playstatechanged"/>
             </intent-filter>
@@ -74,6 +74,16 @@
             android:name=".ChangeStatusService"
             android:exported="false">
         </service>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ua.naiksoftware.slackmusicstatus.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

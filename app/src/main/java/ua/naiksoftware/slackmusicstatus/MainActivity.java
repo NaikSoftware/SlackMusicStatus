@@ -95,6 +95,10 @@ public class MainActivity extends Activity {
         finish();
     }
 
+    public void openSettings(View view) {
+        startActivityForResult(new Intent(this, SettingsActivity.class), 0);
+    }
+
     public void logout(View view) {
         DataStorage.clear(this);
         startLogin();
