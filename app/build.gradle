@@ -30,12 +30,18 @@ android {
             buildConfigField 'String', 'SLACK_CLIENT_SECRET', '\"' + properties.get("slack.clent_secret", "") + '\"'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
 
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha5"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha5"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha5"
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha8"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha8"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha8"
+    compile "io.reactivex.rxjava2:rxjava:2.1.2"
 }

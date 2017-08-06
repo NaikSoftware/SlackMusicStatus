@@ -59,12 +59,9 @@ public class LoginActivity extends Activity {
                 Uri url = request.getUrl();
                 if (url.getHost().equals(Config.Slack.REDIRECT_URL_HOST)) {
                     String code = url.getQueryParameter("code");
-                    mLoadDataTask = NetworkHelper.getAsync(new Callback<AuthResponse>() {
-                        @Override
-                        public void call(AuthResponse authResponse) {
-                            if (authResponse == null) onLoginError(LoginError.AUTH);
-                            else onAuthSuccess(authResponse);
-                        }
+                    mLoadDataTask = NetworkHelper.getAsync(authResponse -> {
+                        if (authResponse == null) onLoginError(LoginError.AUTH);
+                        else onAuthSuccess(authResponse);
                     }, AuthResponse.class).execute(String.format(Config.Slack.FETCH_TOKEN_URL, code));
                     showProgress(true);
                 } else {
@@ -76,22 +73,16 @@ public class LoginActivity extends Activity {
     }
 
     private void onAuthSuccess(final AuthResponse response) {
-        mLoadDataTask = NetworkHelper.getAsync(new Callback<FetchProfileResponse>() {
-            @Override
-            public void call(FetchProfileResponse profileResponse) {
-                if (profileResponse == null) onLoginError(LoginError.FETCH_USER_INFO);
-                else onFetchProfileSuccess(response, profileResponse);
-            }
+        mLoadDataTask = NetworkHelper.getAsync(profileResponse -> {
+            if (profileResponse == null) onLoginError(LoginError.FETCH_USER_INFO);
+            else onFetchProfileSuccess(response, profileResponse);
         }, FetchProfileResponse.class).execute(String.format(Config.Slack.FETCH_PROFILE_URL, response.accessToken));
     }
 
     private void onFetchProfileSuccess(final AuthResponse authResponse, final FetchProfileResponse profileResponse) {
-        mLoadDataTask = NetworkHelper.getAsync(new Callback<FetchTeamResponse>() {
-            @Override
-            public void call(FetchTeamResponse teamResponse) {
-                if (teamResponse == null) onLoginError(LoginError.FETCH_TEAM_INFO);
-                else onFetchTeamSuccess(authResponse, profileResponse, teamResponse);
-            }
+        mLoadDataTask = NetworkHelper.getAsync(teamResponse -> {
+            if (teamResponse == null) onLoginError(LoginError.FETCH_TEAM_INFO);
+            else onFetchTeamSuccess(authResponse, profileResponse, teamResponse);
         }, FetchTeamResponse.class).execute(String.format(Config.Slack.FETCH_TEAM_URL, authResponse.accessToken));
     }
 

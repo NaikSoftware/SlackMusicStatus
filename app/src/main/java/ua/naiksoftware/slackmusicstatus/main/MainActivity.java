@@ -1,6 +1,7 @@
 package ua.naiksoftware.slackmusicstatus.main;
 
 import android.app.Activity;
+import android.arch.lifecycle.LifecycleActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,7 +30,7 @@ import ua.naiksoftware.slackmusicstatus.model.User;
  * Created by naik on 23.06.17.
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends LifecycleActivity {
 
     private TextView mTextViewName;
     private TextView mTeamName;
