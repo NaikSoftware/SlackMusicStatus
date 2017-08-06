@@ -1,4 +1,4 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.changemusic;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.util.Pair;
 
 import java.util.Arrays;
 
+import ua.naiksoftware.slackmusicstatus.Config;
+import ua.naiksoftware.slackmusicstatus.shared.DataStorage;
+import ua.naiksoftware.slackmusicstatus.shared.NetworkHelper;
 import ua.naiksoftware.slackmusicstatus.model.User;
 
 public class ChangeStatusService extends IntentService {

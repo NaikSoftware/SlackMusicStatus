@@ -1,8 +1,9 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.shared;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import ua.naiksoftware.slackmusicstatus.BuildConfig;
 import ua.naiksoftware.slackmusicstatus.model.User;
 
 /**

@@ -1,4 +1,4 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.shared;
 
 import android.os.AsyncTask;
 import android.util.Pair;
@@ -6,7 +6,6 @@ import android.util.Pair;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.settings;
 
 
 import android.app.ActionBar;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
+
+import ua.naiksoftware.slackmusicstatus.R;
 
 public class SettingsActivity extends PreferenceActivity {
 

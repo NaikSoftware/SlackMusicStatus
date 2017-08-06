@@ -1,9 +1,11 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.changemusic;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+
+import ua.naiksoftware.slackmusicstatus.Config;
+import ua.naiksoftware.slackmusicstatus.R;
 
 public class ChangeMusicReceiver extends BroadcastReceiver {
 

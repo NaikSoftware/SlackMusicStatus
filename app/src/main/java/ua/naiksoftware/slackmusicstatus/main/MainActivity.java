@@ -1,4 +1,4 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.main;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,12 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.net.URL;
 
+import ua.naiksoftware.slackmusicstatus.changemusic.ChangeStatusService;
+import ua.naiksoftware.slackmusicstatus.Config;
+import ua.naiksoftware.slackmusicstatus.shared.DataStorage;
+import ua.naiksoftware.slackmusicstatus.login.LoginActivity;
+import ua.naiksoftware.slackmusicstatus.R;
+import ua.naiksoftware.slackmusicstatus.settings.SettingsActivity;
 import ua.naiksoftware.slackmusicstatus.model.User;
 
 /**

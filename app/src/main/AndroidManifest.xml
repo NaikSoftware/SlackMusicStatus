@@ -27,20 +27,20 @@
             android:name="android.max_aspect"
             android:value="2.1"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".login.LoginActivity">
         </activity>
 
         <receiver
-            android:name=".ChangeMusicReceiver"
+            android:name=".changemusic.ChangeMusicReceiver"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="500">
                 <action android:name="com.android.music.metachanged"/>
                 <action android:name="com.htc.music.metachanged"/>
                 <action android:name="fm.last.android.metachange"/>
@@ -56,33 +56,33 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".PlaybackCompleteReceiver"
+            android:name=".changemusic.PlaybackCompleteReceiver"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="500">
                 <action android:name="com.android.music.playbackcomplete"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".PlayStateReceiver"
+            android:name=".changemusic.PlayStateReceiver"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="500">
                 <action android:name="com.android.music.playstatechanged"/>
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".ChangeStatusService"
+            android:name=".changemusic.ChangeStatusService"
             android:exported="false">
         </service>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ua.naiksoftware.slackmusicstatus.MainActivity"/>
+                android:value="ua.naiksoftware.slackmusicstatus.main.MainActivity"/>
         </activity>
     </application>
 

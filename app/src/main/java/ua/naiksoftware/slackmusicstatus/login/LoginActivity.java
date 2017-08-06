@@ -1,4 +1,4 @@
-package ua.naiksoftware.slackmusicstatus;
+package ua.naiksoftware.slackmusicstatus.login;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,10 +13,16 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import ua.naiksoftware.slackmusicstatus.Config;
+import ua.naiksoftware.slackmusicstatus.shared.DataStorage;
+import ua.naiksoftware.slackmusicstatus.shared.NetworkHelper;
+import ua.naiksoftware.slackmusicstatus.R;
+import ua.naiksoftware.slackmusicstatus.main.MainActivity;
 import ua.naiksoftware.slackmusicstatus.model.AuthResponse;
 import ua.naiksoftware.slackmusicstatus.model.FetchProfileResponse;
 import ua.naiksoftware.slackmusicstatus.model.FetchTeamResponse;
 import ua.naiksoftware.slackmusicstatus.model.User;
+import ua.naiksoftware.slackmusicstatus.shared.Callback;
 
 public class LoginActivity extends Activity {
 
