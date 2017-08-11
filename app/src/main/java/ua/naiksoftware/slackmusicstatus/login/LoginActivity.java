@@ -59,10 +59,13 @@ public class LoginActivity extends Activity {
                 Uri url = request.getUrl();
                 if (url.getHost().equals(Config.Slack.REDIRECT_URL_HOST)) {
                     String code = url.getQueryParameter("code");
-                    mLoadDataTask = NetworkHelper.getAsync(authResponse -> {
-                        if (authResponse == null) onLoginError(LoginError.AUTH);
-                        else onAuthSuccess(authResponse);
-                    }, AuthResponse.class).execute(String.format(Config.Slack.FETCH_TOKEN_URL, code));
+//                    mLoadDataTask = NetworkHelper.getAsync(new Callback<AuthResponse>() {
+//                        @Override
+//                        public void call(AuthResponse authResponse) {
+//                            if (authResponse == null) onLoginError(LoginError.AUTH);
+//                            else onAuthSuccess(authResponse);
+//                        }
+//                    }, AuthResponse.class).execute(String.format(Config.Slack.FETCH_TOKEN_URL, code));
                     showProgress(true);
                 } else {
                     view.loadUrl(url.toString());
@@ -72,34 +75,43 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void onAuthSuccess(final AuthResponse response) {
-        mLoadDataTask = NetworkHelper.getAsync(profileResponse -> {
-            if (profileResponse == null) onLoginError(LoginError.FETCH_USER_INFO);
-            else onFetchProfileSuccess(response, profileResponse);
-        }, FetchProfileResponse.class).execute(String.format(Config.Slack.FETCH_PROFILE_URL, response.accessToken));
-    }
+//    private void onAuthSuccess(final AuthResponse response) {
+//        mLoadDataTask = NetworkHelper.getAsync(new Callback<FetchProfileResponse>() {
+//            @Override
+//            public void call(FetchProfileResponse profileResponse) {
+//                if (profileResponse == null)
+//                    LoginActivity.this.onLoginError(LoginError.FETCH_USER_INFO);
+//                else LoginActivity.this.onFetchProfileSuccess(response, profileResponse);
+//            }
+//        }, FetchProfileResponse.class).execute(String.format(Config.Slack.FETCH_PROFILE_URL, response.accessToken));
+//    }
 
-    private void onFetchProfileSuccess(final AuthResponse authResponse, final FetchProfileResponse profileResponse) {
-        mLoadDataTask = NetworkHelper.getAsync(teamResponse -> {
-            if (teamResponse == null) onLoginError(LoginError.FETCH_TEAM_INFO);
-            else onFetchTeamSuccess(authResponse, profileResponse, teamResponse);
-        }, FetchTeamResponse.class).execute(String.format(Config.Slack.FETCH_TEAM_URL, authResponse.accessToken));
-    }
+//    private void onFetchProfileSuccess(final AuthResponse authResponse, final FetchProfileResponse profileResponse) {
+//        mLoadDataTask = NetworkHelper.getAsync(new Callback<FetchTeamResponse>() {
+//            @Override
+//            public void call(FetchTeamResponse teamResponse) {
+//                if (teamResponse == null)
+//                    LoginActivity.this.onLoginError(LoginError.FETCH_TEAM_INFO);
+//                else
+//                    LoginActivity.this.onFetchTeamSuccess(authResponse, profileResponse, teamResponse);
+//            }
+//        }, FetchTeamResponse.class).execute(String.format(Config.Slack.FETCH_TEAM_URL, authResponse.accessToken));
+//    }
 
-    private void onFetchTeamSuccess(AuthResponse authResponse, FetchProfileResponse profileResponse, FetchTeamResponse teamResponse) {
-        User user = new User(
-                authResponse.accessToken,
-                profileResponse.profile.firstName + " " + profileResponse.profile.lastName,
-                profileResponse.profile.avatar,
-                teamResponse.team.name,
-                teamResponse.team.icon.image_132
-        );
-        DataStorage.storeUser(this, user);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
+//    private void onFetchTeamSuccess(AuthResponse authResponse, FetchProfileResponse profileResponse, FetchTeamResponse teamResponse) {
+//        User user = new User(
+//                authResponse.accessToken,
+//                profileResponse.profile.firstName + " " + profileResponse.profile.lastName,
+//                profileResponse.profile.avatar,
+//                teamResponse.team.name,
+//                teamResponse.team.icon.image_132
+//        );
+//        DataStorage.storeUser(this, user);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//        finish();
+//    }
 
     private void onLoginError(LoginError error) {
         showProgress(false);

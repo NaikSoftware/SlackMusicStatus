@@ -12,28 +12,20 @@ import ua.naiksoftware.slackmusicstatus.model.User;
 
 public class DataStorage {
 
-    private static final String KEY_USER = "KEY_USER";
+    private static final String KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN";
     private static final String KEY_ENABLED = "KEY_ENABLED";
     private static final String KEY_LAST_STATUS = "KEY_LAST_STATUS";
 
     private static SharedPreferences sSharedPreferences;
-    private static User sUser;
 
-    public static User getUser(Context context) {
-        if (sUser == null) {
-            SharedPreferences prefs = getPrefs(context);
-            String userStr = prefs.getString(KEY_USER, null);
-            if (userStr == null) return null;
-            sUser = NetworkHelper.GSON.fromJson(userStr, User.class);
-        }
-        return sUser;
+    public static String getAccessToken(Context context) {
+        return getPrefs(context).getString(KEY_ACCESS_TOKEN, null);
     }
 
-    public static void storeUser(Context context, User user) {
+    public static void storeAccessToken(Context context, String accessToken) {
         SharedPreferences.Editor editor = getPrefs(context).edit();
-        editor.putString(KEY_USER, NetworkHelper.GSON.toJson(user));
+        editor.putString(KEY_ACCESS_TOKEN, accessToken);
         editor.apply();
-        sUser = null;
     }
 
     public static boolean getEnabled(Context context) {

@@ -2,11 +2,14 @@ package ua.naiksoftware.slackmusicstatus.main;
 
 import android.app.Activity;
 import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +17,14 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.URL;
 
 import ua.naiksoftware.slackmusicstatus.changemusic.ChangeStatusService;
 import ua.naiksoftware.slackmusicstatus.Config;
+import ua.naiksoftware.slackmusicstatus.login.AuthException;
 import ua.naiksoftware.slackmusicstatus.shared.DataStorage;
 import ua.naiksoftware.slackmusicstatus.login.LoginActivity;
 import ua.naiksoftware.slackmusicstatus.R;
@@ -42,17 +47,32 @@ public class MainActivity extends LifecycleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        User user = DataStorage.getUser(this);
-        if (user != null) {
-            setContentView(R.layout.activity_main);
-            mTextViewName = (TextView) findViewById(R.id.name);
-            mAvatar = (ImageView) findViewById(R.id.avatar);
-            mTeamName = (TextView) findViewById(R.id.team);
-            mTeamAvatar = (ImageView) findViewById(R.id.team_avatar);
-            bindInfo(user);
-        } else {
-            startLogin();
-        }
+        setContentView(R.layout.activity_main);
+        mTextViewName = (TextView) findViewById(R.id.name);
+        mAvatar = (ImageView) findViewById(R.id.avatar);
+        mTeamName = (TextView) findViewById(R.id.team);
+        mTeamAvatar = (ImageView) findViewById(R.id.team_avatar);
+
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        viewModel.getErrors().observe(this, new Observer<Throwable>() {
+            @Override
+            public void onChanged(@Nullable Throwable throwable) {
+                if (throwable == null) return;
+                if (throwable instanceof AuthException) {
+                    startLogin();
+                } else {
+                    Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        viewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                bindInfo(user);
+            }
+        });
     }
 
     private void bindInfo(final User user) {
@@ -89,7 +109,8 @@ public class MainActivity extends LifecycleActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 DataStorage.setEnabled(MainActivity.this, isChecked);
-                if (!isChecked) ChangeStatusService.startHandleChange(MainActivity.this, "", Config.Slack.DEFAULT_STATUS_EMOJI, true);
+                if (!isChecked)
+                    ChangeStatusService.startHandleChange(MainActivity.this, "", Config.Slack.DEFAULT_STATUS_EMOJI, true);
             }
         });
         return super.onCreateOptionsMenu(menu);

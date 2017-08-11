@@ -25,21 +25,7 @@ public class NetworkHelper {
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create();
 
-    public static <T> AsyncTask<String, Void, T> getAsync(final Callback<T> callback, final Class<T> clazz) {
-        return new AsyncTask<String, Void, T>() {
-            @Override
-            protected T doInBackground(String... params) {
-                return NetworkHelper.get(clazz, params[0]);
-            }
-
-            @Override
-            protected void onPostExecute(T result) {
-                if (callback != null) callback.call(result);
-            }
-        };
-    }
-
-    public static  <T> T get(Class<T> clazz, String url) {
+    public static  <T> T get(Class<T> clazz, String url) throws IOException {
         BufferedReader reader = null;
         HttpURLConnection connection = null;
         try {
@@ -51,8 +37,6 @@ public class NetworkHelper {
                 sb.append(line);
             }
             return GSON.fromJson(sb.toString(), clazz);
-        } catch (IOException e) {
-            return null;
         } finally {
             if (reader != null) try {
                 reader.close();

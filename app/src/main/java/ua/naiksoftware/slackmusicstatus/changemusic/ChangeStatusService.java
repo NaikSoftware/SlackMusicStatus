@@ -35,10 +35,11 @@ public class ChangeStatusService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        User user = DataStorage.getUser(this);
-        if (user == null ||  // Not authenticated or disabled, ignore
-                !intent.getBooleanExtra(EXTRA_STATUS_FORCE, false) && !DataStorage.getEnabled(this))
+        String accessToken = DataStorage.getAccessToken(this);
+        if (accessToken == null ||  // Not authenticated or disabled, ignore
+                !intent.getBooleanExtra(EXTRA_STATUS_FORCE, false) && !DataStorage.getEnabled(this)) {
             return;
+        }
 
         String status = intent.getStringExtra(EXTRA_STATUS);
         String icon = intent.getStringExtra(EXTRA_STATUS_ICON);
@@ -50,7 +51,7 @@ public class ChangeStatusService extends IntentService {
 
         String jsonProfile = "{\"status_text\":\"" + status + "\", \"status_emoji\":\"" + icon + "\"}";
         String result = NetworkHelper.post(String.class, Config.Slack.POST_STATUS_URL, Arrays.asList(
-                new Pair<>("token", user.token),
+                new Pair<>("token", accessToken),
                 new Pair<>("profile", jsonProfile)
         ));
         if (result != null) {
